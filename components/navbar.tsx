@@ -23,7 +23,7 @@ const navbar = async () => {
               'use server'
               await signOut({redirectTo: '/'});
               }}>
-              <button type="submit">
+              <button type="submit" className='cursor-pointer'>
                 Logout
               </button>
             </form>

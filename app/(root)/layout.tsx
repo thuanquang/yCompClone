@@ -1,4 +1,4 @@
-import Navbar from "@/app/components/navbar"
+import Navbar from "@/components/navbar"
 import localFont from "next/font/local"
 import { Metadata } from "next"
 import '../../globals.css'
