@@ -4,9 +4,11 @@ import { EyeIcon } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from './ui/button'
+import { Startup, Author } from '@/sanity/types'
 
+export type StartupTypeCard = Omit<Startup, "author"> & {author?: Author}
 const StartupCard = ({post}: {post: StartupTypeCard}) => {
-  const {_createdAt, views, author: {_id: authorId, name}, _id, image, category, title, description} = post;
+  const {_createdAt, views, author, _id, image, category, title, description} = post;
 
   return (
     <li className='startup-card group'>
@@ -22,9 +24,9 @@ const StartupCard = ({post}: {post: StartupTypeCard}) => {
 
         <div className='flex justify-between items-center mt-5 gap-5'>
           <div className='flex-1'>
-            <Link href={`/user/${authorId}`}>
+            <Link href={`/user/${author?._id}`}>
               <p className='font-medium text-[16px] text-black line-clamp-1 font-work-sans'>
-                {name}
+                {author?.name}
               </p>
             </Link>
             <Link href={`/startup/${_id}`}>
@@ -33,19 +35,21 @@ const StartupCard = ({post}: {post: StartupTypeCard}) => {
               </h3>
             </Link>
           </div>
-          <Link href={`/user/${authorId}`}>
-          <Image src="https://picsum.photos/48/48?random=1" alt="placeholder" width={48} height={48} className='rounded-full' />
+
+          <Link href={`/user/${author?._id}`}>
+            <Image src={image || ''} alt={title || ''} width={48} height={48} className='rounded-full' />
           </Link>
+
         </div>
         <Link href={`/startup/${_id}`}>
-          <p className='font-work-sans font-normal text-[16px] line-clamp-2 my-3 text-black-100 break-all'>
+          <p className='font-work-sans font-normal text-[16px] line-clamp-2 my-3 text-black-100'>
             {description}
           </p>
           <img src={image} alt="placeholder" className='w-full h-[164px] rounded-[10px] object-cover'/>
         </Link>
 
         <div className='flex justify-between items-center mt-5 gap-3'>
-          <Link href={`/?query=${category.toLowerCase()}`}>
+          <Link href={`/?query=${category?.toLowerCase()}`}>
             <p className="font-works-sans font-medium text-[16px] text-black">
               {category}
             </p>

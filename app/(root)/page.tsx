@@ -1,22 +1,18 @@
 import React from 'react'
 import SearchForm from '../../components/SearchForm'
 import StartupCard from '../../components/StartupCard'
+import { STARTUP_QUERY } from '../../sanity/lib/queries'
+import { StartupTypeCard } from '../../components/StartupCard'
+import { sanityFetch } from '@/sanity/lib/live'
+import { SanityLive } from '@/sanity/lib/live'
 
 const page = async ({searchParams}: {
   searchParams: Promise<{query?: string}>
 }) => {
   const query = (await searchParams).query
 
-  const posts = [{
-    _createdAt: new Date().toISOString(),
-    views: 55,
-    author:{ _id: 1, name: 'Quang'},
-    _id: 1,
-    description: 'Fake desc',
-    image: 'https://picsum.photos/150/150',
-    category: "Nature",
-    title: 'We bare bears'
-  }]
+  const {data: posts} = await sanityFetch({query: STARTUP_QUERY})
+
   return (
     <>
     <section className='pink_container pattern'>
@@ -25,7 +21,7 @@ const page = async ({searchParams}: {
         <SearchForm query={query}/>
     </section>
 
-    <section className="section_container">
+    <section className="px-6 py-10 max-w-7xl mx-auto">
       <p className="font-semibold font-work-sans text-[30px] text-black">
         {query ? `Search results for "${query}"` : 'All Startups'}
       </p>
@@ -40,6 +36,8 @@ const page = async ({searchParams}: {
         )}
       </ul>
     </section>
+
+    <SanityLive />
     </>
   )
 }

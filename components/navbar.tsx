@@ -28,7 +28,7 @@ const navbar = async () => {
               </button>
             </form>
 
-            <Link href={`/user/${session?.id}`}>
+            <Link href={`/user/${session?.user?.id}`}>
               <span>{session?.user?.name}</span>
             </Link>
           </>
@@ -38,7 +38,7 @@ const navbar = async () => {
             
             await signIn('github');
             }}>
-            <button type="submit">
+            <button type="submit" className='cursor-pointer'>
               Login
             </button>
           </form>
