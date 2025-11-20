@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {auth, signOut, signIn} from '@/auth'
+import RollingText from './RollingText'
 
 
 const navbar = async () => {
@@ -16,7 +17,7 @@ const navbar = async () => {
         {session && session?.user ? (
           <>
             <Link  href="/startup/create">
-              <span>Create Startup</span>
+              <RollingText text="Create Startup" />
             </Link>
 
             <form action={async() => {
@@ -24,12 +25,12 @@ const navbar = async () => {
               await signOut({redirectTo: '/'});
               }}>
               <button type="submit" className='cursor-pointer'>
-                Logout
+                <RollingText text="Logout" />
               </button>
             </form>
 
             <Link href={`/user/${session?.user?.id}`}>
-              <span>{session?.user?.name}</span>
+              <RollingText text={session?.user?.name || ''} />
             </Link>
           </>
         ):(
@@ -39,7 +40,7 @@ const navbar = async () => {
             await signIn('github');
             }}>
             <button type="submit" className='cursor-pointer'>
-              Login
+              <RollingText text="Login" />
             </button>
           </form>
         )}
