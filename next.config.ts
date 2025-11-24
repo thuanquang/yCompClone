@@ -9,9 +9,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    ppr: 'incremental',
-  },
+  cacheComponents: true,
   devIndicators: {
     appIsrStatus: true,
     buildActivity: true,
